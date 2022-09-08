@@ -1,0 +1,99 @@
+.courses {
+  border: 1px solid gray;
+  display: flex;
+  padding: 15px;
+  flex-direction: column;
+}
+
+.searchForm {
+  width: 100%;
+}
+.accordionButton:after {
+  order: -1; 
+  margin-left: 0; 
+  margin-right:0.5em; 
+}
+.widthRes{
+  width:90%;
+  margin:auto;
+}
+
+@media screen and (min-width:700px) {
+  .searchForm {
+    width: 20%;
+  }
+  .widthRes{
+    width:80%;
+    margin:auto;
+  }
+}
+
+@media screen and (min-width:1000px) {
+  .searchForm {
+    width: 50%;
+  }
+  .widthRes{
+    width:50%;
+    margin-left:19% ;
+  }
+}
+
+.carouselBtn {
+  background-color: black;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.Link {
+  color: black;
+  font: lighter;
+  text-decoration: none;
+  padding: 4px;
+}
+
+.activeLink {
+  color: blue;
+  text-decoration: none;
+  font-style: bold;
+}
+
+.coursesContent {
+  width: 260px;
+  display: block;
+  padding: 8px;
+}
+
+.displayCourses {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: center;
+}
+
+.exploreBtn {
+  width: 150px;
+  background-color: white;
+  border: 1px solid gray;
+  padding: 10px;
+}
+
+.exploreBtn:hover {
+  box-shadow: 2px 2px 2px gray;
+}
+
+.body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
