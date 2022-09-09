@@ -5,6 +5,7 @@ import { context } from "../App.js";
 import ReactLoading from 'react-loading';
 import style from '../index.module.css'
 import StarRatings from 'react-star-ratings';
+import Footer from './Footer';
 
 export default function Details() {
   const { id } = useParams();
@@ -35,7 +36,7 @@ export default function Details() {
         {(allData["isLoading"] || data["isLoading"] || reviews["isLoading"]) && <ReactLoading className='m-auto mt-5' type={"spokes"} color={"#000"} ></ReactLoading>}
         {(course && data["data"] && reviews["data"]) &&
           <>
-            <div className='d-flex flex-column position-relative'>
+            <div className='d-flex flex-column position-relative mb-5'>
               <MainContent1 course={course} instructors={instructors}></MainContent1>
               <Need course={course}></Need>
               <Sections details={details} course={course}></Sections>
@@ -43,9 +44,9 @@ export default function Details() {
               <Instructors instructors={instructors}></Instructors>
               <Rating course={course} review={review}></Rating>
               <Reviews course={course} review={review}></Reviews>
-              <Footer></Footer>
               <Side course={course}></Side>
             </div>
+            <Footer></Footer>
           </>
         }
         {(allData["error"] || data["error"] || reviews["error"]) && <div className="d-block m-auto" style={{ color: "red" }}>sorry some thing is wrong please check you internet connection</div>}
@@ -253,6 +254,7 @@ function Sections({ details, course }) {
   )
 }
 function ReqAndDes({ course, details }) {
+  const[index,setIndex] = useState(1);
   return (
     <div className={"mt-4 " + style.widthRes}>
       <h4>Requirements</h4>
@@ -260,11 +262,15 @@ function ReqAndDes({ course, details }) {
         {course[0].requirement.map((req) => <li className='m-2' key={req}>{req}</li>)}
       </ul>
       <h4 className="m-2">Description</h4>
-      {details.description.map((st) => <p className="m-3" key={st}>{st}</p>)}
+      {details.description.map((st) => <p className={(st._index>index)?"d-none":"d-block m-3"} key={"courseDescription"+st._index}>{st.data}</p>)}
+      <button className={(index<details.description.length)?"btn btn-link p-0 m-2":"d-none"} onClick={()=>setIndex(index+1)}>show more</button>
+      <button className={(index>1)?"btn btn-link p-0 m-2":"d-none"} onClick={()=>setIndex(index-1)}>show less</button>
     </div>
   )
 }
 function Instructors({ instructors }) {
+  const[index,setIndex] = useState(1);
+
   return (<div className={"mt-4 " + style.widthRes}>
     <h4>Instructors</h4>
     {instructors.map((inst) =>
@@ -301,7 +307,9 @@ function Instructors({ instructors }) {
           </div>
         </div>
         <div className="container m-2 mt-4">
-          {inst.description.map((des) => <div key={des}>{des}</div>)}
+          {inst.description.map((des) => <div className={(des._index>index)?"d-none":"d-block"} key={"insDescription"+des._index} >{des.data}</div>)}
+          <button className={(index<inst.description.length)?"btn btn-link p-0 m-2":"d-none"} onClick={()=>setIndex(index+1)}>show more</button>
+          <button className={(index>1)?"btn btn-link p-0 m-2":"d-none"} onClick={()=>setIndex(index-1)}>show less</button>
         </div>
       </div>
     )}
@@ -472,51 +480,6 @@ function Reviews({ review }) {
           </div>
         </div>
       )}
-    </div>
-  )
-}
-
-function Footer() {
-  return (
-    <div className="w-100 bg-dark footer p-4">
-      <div className='d-flex justify-content-between flex-column'>
-        <div>
-          <h6 className="text-white">Top companies choose Udeymy Business to build in-demand career skills.</h6>
-        </div>
-        <div className="d-flex">
-          <h6 className="m-2 text-white" >Nasdaq</h6>
-          <h6 className="m-2 text-white" >box</h6>
-          <h6 className="m-2 text-white">NetApp</h6>
-          <h6 className="m-2 text-white">eventbrite</h6>
-        </div>
-      </div>
-      <hr className='w-100 bg-white'></hr>
-      <div className="d-flex">
-        <div className='m-3 text-white'>
-          <h6 className='small'>Udemy Business</h6>
-          <h6 className='small'>Teach on Udemy</h6>
-          <h6 className='small'>Get the app</h6>
-          <h6 className='small'>About us</h6>
-          <h6 className='small'>Contact Us</h6>
-        </div>
-        <div className='m-3 text-white'>
-          <h6 className='small'>Careers</h6>
-          <h6 className='small'>Blog</h6>
-          <h6 className='small'>Help and Support</h6>
-          <h6 className='small'>Amiliate</h6>
-          <h6 className='small'>Inventors</h6>
-        </div>
-        <div className='m-3 text-white'>
-          <h6 className='small'>Terms</h6>
-          <h6 className='small'>Privacy policy</h6>
-          <h6 className='small'>Cookie settings</h6>
-          <h6 className='small'>Sitemap</h6>
-          <h6 className='small'>Accessibility statement</h6>
-        </div>
-      </div>
-      <div>
-        <h5 className="text-center text-white">Udemy Project made by abdelrahman fekri</h5>
-      </div>
     </div>
   )
 }
