@@ -3,6 +3,7 @@ import Section from './Section';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import Style from "../index.module.css"
 import Nav from './Nav.js';
+import Footer from './Footer.js'
 function Selection() {
     return (
         <>
@@ -41,9 +42,7 @@ export default function Home() {
                 <Selection></Selection>
                 <Section course={course}></Section>
             </div>
-            <footer className='container footer text-center bg-dark w-100 mt-4' style={{height:"5rem"}}>
-                <h5 className="m-auto text-white">react copy with react,bootstrap,css,JavaScript</h5>
-            </footer>
+            <Footer></Footer>
         </>
     )
 }
