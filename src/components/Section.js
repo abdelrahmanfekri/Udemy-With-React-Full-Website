@@ -53,7 +53,6 @@ export default function Section({ course }) {
   const cardRef = useRef();
   const courseSection = useRef();
   function carouselSlide(dir) {
-    console.log(cardRef);
     let scrollSize = Number(displayCourses.current.scrollWidth);
     let scrollWidth = Number(cardRef.current.clientWidth) + 20;
     if (dir === "left") {

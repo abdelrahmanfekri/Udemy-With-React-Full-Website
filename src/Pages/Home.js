@@ -1,8 +1,8 @@
 import React from 'react'
-import Section from './Section';
+import Section from '../Components/Section';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import Style from "../index.module.css"
-import Nav from './Nav.js';
+import Nav from '../Components/Nav.js';
 
 export default function Home() {
     const [searchParams, setSearchParams] = useSearchParams("");
