@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
+    "concurrently": "^7.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loading": "^2.0.3",
@@ -18,7 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"json-server --watch details.json --port=3001\"  \"json-server --watch Review.json --port=3002\"  \"json-server --watch HomePageCourses.json\" \"set PORT=3006 && react-scripts start\"",
+    "start": "concurrently \"json-server --watch details.json --port=3001\"  \"json-server --watch Review.json --port=3002\"  \"json-server --watch HomePageCourses.json --port=3003\" \"set PORT=3000 && react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

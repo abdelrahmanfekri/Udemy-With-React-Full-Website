@@ -5,7 +5,6 @@ import { context } from "../App.js";
 import ReactLoading from 'react-loading';
 import style from '../index.module.css'
 import StarRatings from 'react-star-ratings';
-import Footer from './Footer';
 
 export default function Details() {
   const { id } = useParams();
@@ -46,7 +45,6 @@ export default function Details() {
               <Reviews course={course} review={review}></Reviews>
               <Side course={course}></Side>
             </div>
-            <Footer></Footer>
           </>
         }
         {(allData["error"] || data["error"] || reviews["error"]) && <div className="d-block m-auto" style={{ color: "red" }}>sorry some thing is wrong please check you internet connection</div>}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import style from '../index.module.css';
 import Card from './Card.js';
 import {useEffect, useContext } from 'react';
@@ -6,14 +6,15 @@ import ReactLoading from 'react-loading';
 import { useParams } from 'react-router-dom';
 import {context} from '../App.js';
 let scrollSoFar = 0;
-function Courses({ path, course }) {
+function Courses({ path, course,displayCourses}) {
   useEffect(() => {
     scrollSoFar = 0;
-    document.getElementById("display-courses").scroll({ left: scrollSoFar, behavior: 'smooth' });
+    displayCourses.current.scroll({ left: scrollSoFar, behavior: 'smooth' });
     if (course) {
       document.getElementById("courses-section").scrollIntoView();
     }
   })
+  
   const allData = useContext(context);
   let resultCourses = null;
   if (allData["data"]) {
@@ -38,23 +39,24 @@ function Courses({ path, course }) {
     {allData["error"] && <div className="m-auto" style={{ color: "red" }}>sorry some thing is wrong please check you internet connection</div>}
   </>)
 }
-function carouselSlide(dir) {
-  let scrollSize = Number(document.getElementById("display-courses").scrollWidth);
-  let scrollWidth = Number(document.getElementsByClassName("card")[0].clientWidth) + 20;
-  if (dir === "left") {
-    if (scrollSoFar + scrollWidth < scrollSize) {
-      scrollSoFar += scrollWidth;
-      document.getElementById("display-courses").scroll({ left: scrollSoFar, behavior: 'smooth' });
-    }
-  } else {
-    if (scrollSoFar > 0) {
-      scrollSoFar -= scrollWidth;
-      document.getElementById("display-courses").scroll({ left: scrollSoFar, behavior: 'smooth' });
-    }
-  }
-}
 export default function Section({ course }) {
   const { path } = useParams();
+  const displayCourses = useRef();
+  function carouselSlide(dir) {
+    let scrollSize = Number(displayCourses.current.scrollWidth);
+    let scrollWidth = Number(document.getElementsByClassName("card")[0].clientWidth) + 20;
+    if (dir === "left") {
+      if (scrollSoFar + scrollWidth < scrollSize) {
+        scrollSoFar += scrollWidth;
+        displayCourses.current.scroll({ left: scrollSoFar, behavior: 'smooth' });
+      }
+    } else {
+      if (scrollSoFar > 0) {
+        scrollSoFar -= scrollWidth;
+        displayCourses.current.scroll({ left: scrollSoFar, behavior: 'smooth' });
+      }
+    }
+  }
   return (
     <section id="courses-section" className={style.courses}>
       <h4>Expand your career opportunities with Python</h4>
@@ -67,8 +69,8 @@ export default function Section({ course }) {
       </p>
       <button className={style.exploreBtn} id="explore-btn" ><b>Explore Python</b></button>
       <div className="carousel">
-        <div className="carousel-inner" style={{ display: 'flex', justifyContent: 'flex-start' }} id="display-courses">
-          <Courses path={path} course={course} ></Courses>
+        <div className="carousel-inner" style={{ display: 'flex', justifyContent: 'flex-start' }} ref={displayCourses}>
+          <Courses path={path} course={course} displayCourses={displayCourses} ></Courses>
         </div>
         <button onClick={() => carouselSlide("right")} className='carousel-control-prev bg-dark rounded-circle m-auto' style={{ width: "7vh", height: "7vh" }}>
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
