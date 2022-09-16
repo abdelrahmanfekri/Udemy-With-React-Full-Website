@@ -3,9 +3,9 @@ import ReactStars from 'react-rating-stars-component';
 import { Link } from 'react-router-dom';
 import { Popover, ArrowContainer } from 'react-tiny-popover'
 
-function Card(props) {
+function Card({course,reference}) {
     const { image_480x270, id, title, rating, price,
-        visible_instructors, num_reviews, last_update_date, content_info_short, headline, objectives_summary } = props.course;
+        visible_instructors, num_reviews, last_update_date, content_info_short, headline, objectives_summary } = course;
     let names = ''
     visible_instructors.forEach(i => {
         names += i.title + ", ";
@@ -66,7 +66,7 @@ function Card(props) {
                 )}
             >
                 <Link onMouseLeave={() => setIsPopoverOpen(false)} onMouseEnter={() => setIsPopoverOpen(true)} to={`/details/${id}`} className='d-block text-decoration-none text-black'>
-                    <div className="card m-2" style={{ width: "17rem", height: "24rem", boxShadow: "2px 2px grey" }}>
+                    <div className="card m-2" ref={reference} style={{ width: "17rem", height: "24rem", boxShadow: "2px 2px grey" }}>
                         <img className="card-img-top" src={image_480x270} alt="course Logo" width="100%" />
                         <div className="card-body position-relative">
                             <h5 className='card-title'>{title} </h5>

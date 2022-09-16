@@ -1,20 +1,21 @@
 import React, { useRef } from 'react';
 import style from '../index.module.css';
 import Card from './Card.js';
-import {useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import ReactLoading from 'react-loading';
 import { useParams } from 'react-router-dom';
-import {context} from '../App.js';
+import { context } from '../App.js';
 let scrollSoFar = 0;
-function Courses({ path, course,displayCourses}) {
+function Courses({ path, course, displayCourses, cardRef,courseSection }) {
+  
   useEffect(() => {
     scrollSoFar = 0;
     displayCourses.current.scroll({ left: scrollSoFar, behavior: 'smooth' });
     if (course) {
-      document.getElementById("courses-section").scrollIntoView();
+      courseSection.current.scrollIntoView();
     }
   })
-  
+
   const allData = useContext(context);
   let resultCourses = null;
   if (allData["data"]) {
@@ -31,20 +32,30 @@ function Courses({ path, course,displayCourses}) {
       } else {
         resultCourses = allData["data"]["courses"]["items"];
       }
-    }   
+    }
   }
   return (<>
     {allData["isLoading"] && <div className='d-block m-auto'><ReactLoading type={"spokes"} color={"#000"} ></ReactLoading></div>}
-    {resultCourses && resultCourses.map((course) => <Card key={course.id} course={course} />)}
+    {resultCourses && resultCourses.map(
+      (course, i) => {         
+          if(i===0)
+             return (<Card reference={cardRef} key={course.id} course={course} />)
+          else 
+             return (<Card key={course.id} course={course}/>)
+      }
+    )}
     {allData["error"] && <div className="m-auto" style={{ color: "red" }}>sorry some thing is wrong please check you internet connection</div>}
   </>)
 }
 export default function Section({ course }) {
   const { path } = useParams();
   const displayCourses = useRef();
+  const cardRef = useRef();
+  const courseSection = useRef();
   function carouselSlide(dir) {
+    console.log(cardRef);
     let scrollSize = Number(displayCourses.current.scrollWidth);
-    let scrollWidth = Number(document.getElementsByClassName("card")[0].clientWidth) + 20;
+    let scrollWidth = Number(cardRef.current.clientWidth) + 20;
     if (dir === "left") {
       if (scrollSoFar + scrollWidth < scrollSize) {
         scrollSoFar += scrollWidth;
@@ -58,7 +69,7 @@ export default function Section({ course }) {
     }
   }
   return (
-    <section id="courses-section" className={style.courses}>
+    <section id="courses-section" ref={courseSection} className={style.courses}>
       <h4>Expand your career opportunities with Python</h4>
       <p>
         Take one of Udemy's range of Python courses and learn how to code
@@ -70,7 +81,7 @@ export default function Section({ course }) {
       <button className={style.exploreBtn} id="explore-btn" ><b>Explore Python</b></button>
       <div className="carousel">
         <div className="carousel-inner" style={{ display: 'flex', justifyContent: 'flex-start' }} ref={displayCourses}>
-          <Courses path={path} course={course} displayCourses={displayCourses} ></Courses>
+          <Courses path={path} course={course} displayCourses={displayCourses} cardRef={cardRef} courseSection={courseSection}></Courses>
         </div>
         <button onClick={() => carouselSlide("right")} className='carousel-control-prev bg-dark rounded-circle m-auto' style={{ width: "7vh", height: "7vh" }}>
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
