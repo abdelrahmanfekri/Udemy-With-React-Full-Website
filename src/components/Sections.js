@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import style from '../index.module.css'
+import Svg from './Svg';
 
 export default function Sections({ details, course }) {
     const [expand, setExpand] = useState(false);
@@ -29,9 +30,7 @@ export default function Sections({ details, course }) {
                             {section.items.map((item) =>
                                 <div key={section.index + "" + item.id} className="mb-2 d-flex w-100 bg-white align-items-center justify-content-between">
                                     <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-file-play-file" viewBox="0 0 16 16">
-                                            <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM6 5.883a.5.5 0 0 1 .757-.429l3.528 2.117a.5.5 0 0 1 0 .858l-3.528 2.117a.5.5 0 0 1-.757-.43V5.884z" />
-                                        </svg>
+                                        <Svg svg="playFill"></Svg>
                                         <h6 className={item.can_be_previewed ? "d-inline m-1 text-inline" : "d-inline m-1"}>{item.title}</h6>
                                     </div>
                                     <div className='text-end'>

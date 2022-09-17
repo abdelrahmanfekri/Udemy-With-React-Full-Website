@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <>
             <Nav setSearchParams={setSearchParams}></Nav>
-            <main className='position-relative m-4'>
+            <main className='position-relative m-0'>
                 <img className='w-100' alt="time to start" src="../images/head.jpg" />
                 <div className="d-none d-md-block container position-absolute m-4 w-25 p-2" style={{top:"10px",backgroundColor:"white"}}>
                     <h5>New to Udemy?Lucky you.</h5>
